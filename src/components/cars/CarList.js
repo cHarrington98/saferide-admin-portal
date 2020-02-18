@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Car from './Car'
 import CarService from  '../../apiServices/services/car-service';
 
 class CarList extends Component {
   state = {
-    cars: [],
-    searchString: ''
+    cars: []
   }
 
   constructor() {
@@ -29,15 +27,6 @@ class CarList extends Component {
     })
   }
 
-  onSearchInputChange = (event) => {
-    if (event.target.value) {
-      this.setState({searchString: event.target.value})
-    } else {
-      this.setState({searchString: ''})
-    }
-    this.getCars()
-  }
-
   render() {
     return (
       <div>
@@ -45,12 +34,7 @@ class CarList extends Component {
           <div>
             <br></br>
             <br></br>
-            <TextField style={{padding: 24}}
-              id="searchInput"
-              placeholder="Search for Cars"
-              margin="normal"
-              onChange={this.onSearchInputChange}
-            />
+            <br></br>
             <Grid container spacing={2} style={{padding: 12}}>
               { this.state.cars.map(currentCar => (
                 <Grid key={currentCar.id} item xs={12}>

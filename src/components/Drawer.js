@@ -50,7 +50,7 @@ const listElements = [{
                       {
                         text: 'Users',
                         icon: <PeopleSharpIcon style={{color:'#E7542B'}}/>,
-                        link: '/'
+                        link: '/users'
                       },
                       {
                         text: 'Cars',
@@ -60,7 +60,7 @@ const listElements = [{
                       {
                         text: 'Pick Up Points',
                         icon:  <LocationOnSharpIcon style={{color:'#E7542B'}}/>,
-                        link: '/'
+                        link: '/pick-up-points'
                       },
                       {
                         text: 'Drive Logs',
