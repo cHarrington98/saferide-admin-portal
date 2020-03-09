@@ -70,7 +70,7 @@ const listElements = [{
                       {
                         text: 'Waiting Lists',
                         icon:  <AccessTimeSharpIcon style={{color:'#E7542B'}}/>,
-                        link: '/'
+                        link: '/waiting-lists'
                       }];
 
 export default function PermanentDrawerLeft() {
@@ -82,7 +82,7 @@ export default function PermanentDrawerLeft() {
       <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#E7542B' }}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            SafeRide
+            <b>SAFE</b>RIDE
           </Typography>
         </Toolbar>
       </AppBar>

@@ -9,7 +9,7 @@ const NavBar = () => {
       <AppBar position="static">
         <ToolBar>
           <Typography variant="h6" color="inherit">
-            SafeRide
+            SAFERIDE
           </Typography>
         </ToolBar>
       </AppBar>
