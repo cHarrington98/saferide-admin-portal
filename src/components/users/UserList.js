@@ -36,13 +36,13 @@ class UserList extends Component {
             <br></br>
             <br></br>
             <br></br>
-            <Grid container spacing={2} style={{padding: 12}}>
-              { this.state.users.map(currentUser => (
-                <Grid key={currentUser.id} item xs={12}>
-                  <User user={currentUser} />
-                </Grid>
-              ))}
-            </Grid>
+              <Grid container spacing={2} style={{padding: 12}}>
+                { this.state.users.map(currentUser => (
+                  <Grid key={currentUser.id} item xs={12}>
+                    <User user={currentUser} />
+                  </Grid>
+                ))}
+              </Grid>
           </div>
         ) : "No users found."}
       </div>

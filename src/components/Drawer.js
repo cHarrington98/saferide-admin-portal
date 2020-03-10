@@ -81,7 +81,7 @@ export default function PermanentDrawerLeft() {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#E7542B' }}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h4" noWrap>
             <b>SAFE</b>RIDE
           </Typography>
         </Toolbar>
@@ -98,7 +98,6 @@ export default function PermanentDrawerLeft() {
         <Divider />
         <List>
           {/* This lists all of the nav bar buttons.*/}
-          {/* Need to add links later.*/}
           {listElements.map((obj) => (
             <ListItem button key={obj.text} component={Link} to={obj.link}>
               <ListItemIcon>{obj.icon}</ListItemIcon>

@@ -3,6 +3,7 @@ import PickUpPointService from  '../../apiServices/services/pickUpPoint-service'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/EditOutlined';
@@ -11,7 +12,19 @@ import TextField from '@material-ui/core/TextField';
 import DoneSharp from '@material-ui/icons/DoneOutlined';
 import CloseSharp from '@material-ui/icons/CloseOutlined';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import '../../App.css';
+
+const styles = theme => ({
+  root: {
+    width: 480,
+  },
+  media: {
+    height: 250,
+  },
+});
 
 class PickUpPoint extends Component {
   constructor(props) {
@@ -29,37 +42,46 @@ class PickUpPoint extends Component {
     this.delete = this.delete.bind(this);
     this.convertDate = this.convertDate.bind(this);
     this.pickUpPointService = new PickUpPointService(process.env.REACT_APP_API_KEY);
+    this.getImage = this.getImage.bind(this);
   }
 
   render() {
+    const { classes } = this.props;
     if(this.state.mode === "display"){
       return(
         <div>
           { this.state.pickUpPoint ? (
-            <Card>
+            <Card className={classes.root}>
+              <CardMedia
+                  image={process.env.PUBLIC_URL + this.getImage(this.state.pickUpPoint.abbreviation)}
+                  title="Map"
+                  className={classes.media}
+              />
               <div className="box2">
               <CardContent>
-                <Typography component="p">
-                  Title: {this.state.pickUpPoint.title}
+                <Typography variant="h5">
+                  <b> {this.state.pickUpPoint.title} </b>
                 </Typography>
-                <Typography component="p">
-                  Abbreviated Title: {this.state.pickUpPoint.abbreviation}
+                <Typography color="textSecondary" variant="subtitle">
+                  {this.state.pickUpPoint.abbreviation}
                 </Typography>
-                <Typography component="p">
-                  Departure Time: {this.convertDate(this.state.pickUpPoint.departureTime)}
+                <br></br>
+                <br></br>
+                <Typography color="textSecondary">
+                  Last Departure
                 </Typography>
-                <Typography component="p">
-                  Return Time: {this.convertDate(this.state.pickUpPoint.arrivalTime)}
+                <Typography component="p" variant="h5" color='primary' display="inline">
+                  <b>{this.convertDate(this.state.pickUpPoint.departureTime)[0]}</b> 
                 </Typography>
-                <Typography component="p">
-                  Location ID: {this.state.pickUpPoint.locationId}
+                <Typography color="textSecondary" variant="subtitle" display="inline">
+                  {' '}{this.convertDate(this.state.pickUpPoint.departureTime)[1]}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="medium" color="primary" onClick={this.editMode} style={{color:'#E7542B'}}>
+                <Button size="medium" color="primary" onClick={this.editMode}>
                   <Edit/>
                 </Button>
-                <Button size="medium" color="primary" onClick={this.delete} style={{color:'#E7542B'}}>
+                <Button size="medium" color="primary" onClick={this.delete}>
                   <Delete/>
                 </Button>
               </CardActions>
@@ -76,9 +98,6 @@ class PickUpPoint extends Component {
               <div className="box2">
               <CardContent>
                 <Grid container spacing={0} alignItems="flex-end">
-                    <Typography component="p">
-                      Title:<span>&nbsp;&nbsp;</span>
-                    </Typography>
                     <TextField
                       id="updateTitle"
                       name="title"
@@ -88,9 +107,6 @@ class PickUpPoint extends Component {
                     />
                 </Grid>
                 <Grid container spacing={0} alignItems="flex-end">
-                    <Typography component="p">
-                      Abbreviated Title:<span>&nbsp;&nbsp;</span>
-                    </Typography>
                     <TextField
                       id="updateAbbreviation"
                       name="abbreviation"
@@ -99,12 +115,6 @@ class PickUpPoint extends Component {
                       onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Typography component="p">
-                  Departure Time: {this.convertDate(this.state.pickUpPoint.departureTime)}
-                </Typography>
-                <Typography component="p">
-                  Return Time: {this.convertDate(this.state.pickUpPoint.arrivalTime)}
-                </Typography>
                 <Grid container spacing={0} alignItems="flex-end">
                     <Typography component="p">
                       Location ID:<span>&nbsp;&nbsp;</span>
@@ -191,9 +201,17 @@ class PickUpPoint extends Component {
   }
 
   convertDate(timeStamp) {
-    var date = new Date(timeStamp);
-    return date.toString();
+    return moment(timeStamp).format('LT').split(" ");
+  }
+
+  getImage(pickUpPointName) {
+    var imgStr = pickUpPointName.replace(' ','');
+    return imgStr + ".png";
   }
 }
 
-export default PickUpPoint;
+PickUpPoint.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styles)(PickUpPoint);

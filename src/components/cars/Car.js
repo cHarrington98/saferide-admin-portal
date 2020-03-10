@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CarService from  '../../apiServices/services/car-service';
+import PickUpPointService from '../../apiServices/services/pickUpPoint-service';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,6 +20,7 @@ class Car extends Component {
     super(props);
     this.state = {mode: "display",
                   car: this.props.car,
+                  pickUpPoint: {},
                   updateCar: {info: {}}
                 };
     //Need to bind these so they can be called via onClick
@@ -29,6 +31,21 @@ class Car extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.delete = this.delete.bind(this);
     this.carService = new CarService(process.env.REACT_APP_API_KEY);
+    this.pickUpPointService = new PickUpPointService(process.env.REACT_APP_API_KEY);
+    this.getPickUpPoint(this.state.car.pickUpPointId);
+  }
+
+  getPickUpPoint = (id) => {
+    this.pickUpPointService.get(id)
+    .then((response) => {
+      this.setState({pickUpPoint: response})
+      console.log("\nResponse:\n")
+      console.dir(response);
+    })
+    .catch((error) => {
+      console.log("Error occured while pickuppoint by ID.")
+      console.log(error);
+    })
   }
 
   //This function is called when we use <CarList /> in upper levels.
@@ -43,16 +60,11 @@ class Car extends Component {
               <div className="box2">
               <CardContent>
                 <Typography component="p">
-                  ID: {this.state.car.id}
+                  <b>{this.state.pickUpPoint.title}</b>
                 </Typography>
-                <Typography component="p">
-                  Status: {this.state.car.status}
-                </Typography>
-                <Typography component="p">
-                  Device ID: {this.state.car.deviceID}
-                </Typography>
-                <Typography component="p">
-                  Pick Up Point ID: {this.state.car.pickUpPointId}
+                {/* I can set the background color below */}
+                <Typography component="p" style={{ backgroundColor: '' }}>
+                  {this.state.car.status}
                 </Typography>
               </CardContent>
               {/* Would be cool if we moved the CardActions into their own component and passed the onClick methods as props */}

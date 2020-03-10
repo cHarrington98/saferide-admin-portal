@@ -37,7 +37,7 @@ class PickUpPointList extends Component {
             <br></br>
             <Grid container spacing={2} style={{padding: 12}}>
               { this.state.pickUpPoints.map(currentPickUpPoint => (
-                <Grid key={currentPickUpPoint.id} item xs={12}>
+                <Grid key={currentPickUpPoint.id} item xs={6} display="inline">
                   <PickUpPoint pickUpPoint={currentPickUpPoint} />
                 </Grid>
               ))}
