@@ -38,19 +38,19 @@ class User extends Component {
               <div className="box2">
               <CardContent>
                 <Typography component="p">
-                  Name: {this.state.user.firstName + " " + this.state.user.lastName}
+                  <b> {this.state.user.firstName + " " + this.state.user.lastName} </b>
                 </Typography>
                 <Typography component="p">
-                  Email: {this.state.user.email}
+                  {this.state.user.email}
                 </Typography>
                 <Typography component="p">
-                  Student Number: {this.state.user.studentNumber}
+                  {this.state.user.studentNumber}
                 </Typography>
                 <Typography component="p">
-                  Role: {this.state.user.role}
+                  {this.state.user.role}
                 </Typography>
                 <Typography component="p">
-                  Verified: {this.state.user.verified}
+                  {this.state.user.verified}
                 </Typography>
               </CardContent>
               <CardActions>
